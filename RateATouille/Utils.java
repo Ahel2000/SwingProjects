@@ -13,6 +13,10 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.PriorityQueue;
+import javaapplication1.models.Order;
+import javaapplication1.resources.OrderComparator;
 
 public class Utils {
 
@@ -46,6 +50,19 @@ public class Utils {
                 .collect(StringBuilder::new,StringBuilder::appendCodePoint,StringBuilder::append)
                 .toString();
         return genSalt;
+    }
+    
+    public static ArrayList arrangeOrders(ArrayList<Order> orders){
+        ArrayList<Order> arrangedOrders=new ArrayList();
+        PriorityQueue<Order> pq=new PriorityQueue<Order>(10,new OrderComparator());
+        for(Order order:orders){
+            pq.add(order);
+        }
+        
+        while(!pq.isEmpty()){
+            arrangedOrders.add(pq.poll());
+        }
+        return arrangedOrders;
     }
     
 }
