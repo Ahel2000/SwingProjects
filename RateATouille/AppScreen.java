@@ -370,6 +370,7 @@ public class AppScreen extends javax.swing.JFrame {
         
         //orderDb.addOrder2(date, orderItems);
         orderDb.addOrder(date,currentOrderItems);
+        currentOrderItems.clear();
         listmodel1.clear();
         qtyField.setText("");
     }//GEN-LAST:event_buttonPlaceOrderActionPerformed
@@ -379,22 +380,20 @@ public class AppScreen extends javax.swing.JFrame {
         if (ordersList.getSelectedIndex() != -1) {
             initTableModel();
             //tablemodel2.clear();
-            int order = orders.get(ordersList.getSelectedIndex()).getId();
+            Order order = orders.get(ordersList.getSelectedIndex());
             
             //System.out.println(order);
-            for(Order ord:orders){
-                if(ord.getId()==order){
-                    for (MenuItem item : (ArrayList<MenuItem>) ord.getItems()) {
+            
+            for (MenuItem item : (ArrayList<MenuItem>) order.getItems()) {
                
-                        String row[] = {item.getName(), String.valueOf(item.getPrice()), String.valueOf(item.getQuantity())};
-                        System.out.println(row);
-                        tablemodel2.addRow(row);
+              String row[] = {item.getName(), String.valueOf(item.getPrice()), String.valueOf(item.getQuantity())};
+              tablemodel2.addRow(row);
                 
-                    }
-                    totalLabel.setText("Rs." + String.format("%5.2f", ord.getTotal()));
-                    break;
-                }
-            }
+             }
+             totalLabel.setText("Rs." + String.format("%5.2f", order.getTotal()));
+                    
+                
+            
             
         }
         
